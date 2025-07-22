@@ -18,19 +18,6 @@ This project demonstrates an augmented reality (AR) application using Python, Op
 - ArUco markers (DICT_4X4_1000 dictionary) printed and visible to the webcam
 - Sample `.obj` and `.mtl` files (e.g., `cube.obj` and `cube.mtl`)
 
-## Installation
-1. Clone the repository:
-   	```bash
-  	 git clone https://github.com/your-username/your-repo-name.git
-   	cd your-repo-name
-
-2. Create a virtual environment (optional but recommended)
-     	python -m venv venv
-     	source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-3. Install the required packages:
-	pip install opencv-contrib-python numpy pywavefront
-
 ###############################################################################################################################
 
 USAGE
