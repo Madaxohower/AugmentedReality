@@ -97,46 +97,36 @@ def load_obj_model(obj_path, mtl_path):
 
 def draw_model(frame, vertices, faces, face_materials, materials, rvec, tvec, camera_matrix, dist_coeffs, solid=False):
 
-    # match the marker size
+    
     scale_factor = 0.01
     scaled_vertices = vertices * scale_factor
-
-    # Convert vector to Matrix
     rmat, _ = cv2.Rodrigues(rvec)
-    # Ensure tvec is shaped correctly (3,) for broadcasting
-    tvec = tvec.ravel()  # Flatten to (3,)
-    # Transform vertices to camera space
+    tvec = tvec.ravel()  
     transformed_vertices = np.dot(scaled_vertices, rmat.T) + tvec
-
-
     img_points, _ = cv2.projectPoints(scaled_vertices, rvec, tvec, camera_matrix, dist_coeffs)
     img_points = np.int32(img_points).reshape(-1, 2)
-
-    # Debug: Print projected point ranges
     frame_height, frame_width = frame.shape[:2]
     print(f"Min X: {img_points[:, 0].min()}, Max X: {img_points[:, 0].max()}")
     print(f"Min Y: {img_points[:, 1].min()}, Max Y: {img_points[:, 1].max()}")
 
-    # Compute face depths (average Z in camera space) for sorting
     face_depths = []
     for i, face in enumerate(faces):
         if all(0 <= idx < len(transformed_vertices) for idx in face):
             avg_z = np.mean([transformed_vertices[idx][2] for idx in face])
             face_depths.append((i, avg_z))
-    # Sort faces by depth (descending, so farthest faces are drawn first)
+    
     face_depths.sort(key=lambda x: x[1], reverse=True)
 
-    # Draw faces
     visible_faces = 0
     for face_idx, _ in face_depths:
         face = faces[face_idx]
         pts = [img_points[i] for i in face if 0 <= i < len(img_points)]
-        if len(pts) == 3:  # Ensure valid triangle
+        if len(pts) == 3:  
             all_in_frame = all(0 <= x < frame_width and 0 <= y < frame_height for x, y in pts)
             if all_in_frame:
-                # Get material color
+                
                 material_name = face_materials[face_idx]
-                color = materials.get(material_name, (0, 255, 0))  # Default to green if material not found
+                color = materials.get(material_name, (0, 255, 0))  
                 if solid:
                     cv2.fillPoly(frame, [np.array(pts)], color)
                 else:
@@ -147,20 +137,18 @@ def draw_model(frame, vertices, faces, face_materials, materials, rvec, tvec, ca
     return frame
 
 def main():
-    # Camera parameters (replace with actual calibration)
+   
     camera_matrix = np.array([[1000, 0, 320], [0, 1000, 240], [0, 0, 1]], dtype=np.float32)
     dist_coeffs = np.zeros((4, 1), dtype=np.float32)
-
-    # Load .obj and .mtl files
+    
     obj_path = r'E:\ALL PYTHON PROJECTS\ArucoMarkers\Aruco\Solid\cube.obj'
     mtl_path = r'E:\ALL PYTHON PROJECTS\ArucoMarkers\Aruco\Solid\cube.mtl'
     vertices, faces, face_materials, materials = load_obj_model(obj_path, mtl_path)
     if vertices is None or faces is None:
         print("Failed to load .obj file. Exiting.")
         return
-
-    # Choose rendering style
-    render_solid = True  # Set to True for solid faces with material colors
+        
+    render_solid = True  
 
     # Initialize ArUco dictionary and detector parameters
     aruco_dict = aruco.getPredefinedDictionary(aruco.DICT_4X4_1000)
@@ -180,14 +168,11 @@ def main():
 
         # Convert to grayscale for detection
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
-        # Detect ArUco markers
         corners, ids, rejected = aruco.detectMarkers(gray, aruco_dict, parameters=parameters)
 
-        # Process detected markers
         if ids is not None:
             aruco.drawDetectedMarkers(frame, corners, ids)
-            marker_size = 0.01  # Marker size in meters
+            marker_size = 0.01  
             rvecs, tvecs, _ = aruco.estimatePoseSingleMarkers(corners, marker_size, camera_matrix, dist_coeffs)
 
             for i, corner in enumerate(corners):
