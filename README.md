@@ -23,7 +23,7 @@ The model is loaded from `.obj` and `.mtl` files and rendered in real-time based
 
 USAGE
 
-1. Ensure you have a webcam connected and ArUco markers printed (DICT_4X4_1000 dictionary).
+1. Ensure you have a webcam connected and ArUco markers printed (DICT_4X4_50 dictionary).
 2. Place your .obj and .mtl files in the appropriate directory (e.g., Solid/cube.obj and Solid/cube.mtl).
 3. Update the obj_path and mtl_path variables in complete3d.py to point to your .obj and .mtl files:
 	obj_path = r'path/to/your/cube.obj'
