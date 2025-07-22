@@ -1,6 +1,7 @@
 # Augmented Reality with ArUco Markers and 3D Model Rendering
 
-This project demonstrates an augmented reality (AR) application using Python, OpenCV, and ArUco markers to overlay a 3D model onto a webcam feed. The model is loaded from `.obj` and `.mtl` files and rendered in real-time based on detected ArUco markers.
+This project demonstrates an augmented reality (AR) application using Python, OpenCV, and ArUco markers to overlay a 3D model onto a webcam feed. 
+The model is loaded from `.obj` and `.mtl` files and rendered in real-time based on detected ArUco markers.
 
 ## Features
 - Detects ArUco markers in a webcam feed using OpenCV's ArUco module.
@@ -18,7 +19,7 @@ This project demonstrates an augmented reality (AR) application using Python, Op
 - ArUco markers (DICT_4X4_1000 dictionary) printed and visible to the webcam
 - Sample `.obj` and `.mtl` files (e.g., `cube.obj` and `cube.mtl`)
 
-###############################################################################################################################
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 USAGE
 
@@ -34,6 +35,14 @@ USAGE
 5. Point your webcam at the ArUco marker. The 3D model should appear overlaid on the marker.
 6. Press q to exit the application.
 
-#################################################
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 	
+MIT License
+
+Copyright (c) [year] [author]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software... to deal in the Software without restriction...
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND...
