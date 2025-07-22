@@ -40,7 +40,7 @@ USAGE
 	
 MIT License
 
-Copyright (c) [year] [author]
+Copyright (c) [2025] [Madaxohower/PythonArjay]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software... to deal in the Software without restriction...
